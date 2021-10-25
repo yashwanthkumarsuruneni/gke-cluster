@@ -3,7 +3,7 @@
 
 **Prerequisites**
 *  Docker installed in your machine
-*  A GCP account and a GCP project with GKE API Enabled
+*  A GCP account and a project in it with GKE API Enabled
 *  A service Account (JSON KEY) with full ownership permissions to create a GKE Cluster.
 
 ## Inputs 
@@ -20,13 +20,25 @@
 | <a name="helm_conf"></a> [helm\_conf](#input\_helm\_conf) | The configs for the helm charts to be deployed  | `map(map(string))` | { airflow = { name = "airflow" ,repo = "https://airflow.apache.org" , chart = "airflow", namespace = "airflow" ,ingress  = "container-native" } } | no |
 
 ## Instructions 
-- Please download the key file for the service account (in JSON format ) which you would like to use and add it in the root folder.
+
+### Step-1 (Deploy)
+
+- Please download the key file for the service account (in JSON format) which you would like to use and add it in the root folder.
 - Fill the placeholders in `env/lab.tfvars`.
 
 ```bash
-
-
-
+docker run -i -t -v $PWD:$PWD -w $PWD hashicorp/terraform:0.14.11 init
+docker run -i -t -v $PWD:$PWD -w $PWD hashicorp/terraform:0.14.11 workspace new lab
+docker run -i -t -v $PWD:$PWD -w $PWD hashicorp/terraform:0.14.11 plan --var-file=./env/lab.tfvars -out lab.tfplan
+docker run -i -t -v $PWD:$PWD -w $PWD hashicorp/terraform:0.14.11 apply "lab.tfplan"
  ```
+
+### Step-2 (Validate)
+- Once the cluster is created , Login into the GCP console , please wait untill the IP's are attached to the Ingresses. Intially you may see 404, please wait for 5 mins.    
+### Step-3 (Destroy)
+
+```bash
+docker run -i -t -v $PWD:$PWD -w $PWD hashicorp/terraform:0.14.11 destroy --var-file=./env/lab.tfvars
+```
 
 
