@@ -1,0 +1,32 @@
+ingress:
+  enabled: true
+  web:
+    path: "/*"
+    annotations: {
+      kubernetes.io/ingress.class: "gce"
+    }
+  flower:
+    path: "/*"
+    annotations: {
+      kubernetes.io/ingress.class: "gce"
+    }
+    
+webserver:
+  livenessProbe:
+    initialDelaySeconds: 15
+    timeoutSeconds: 30
+    failureThreshold: 60
+    periodSeconds: 30
+  readinessProbe:
+    initialDelaySeconds: 15
+    timeoutSeconds: 30
+    failureThreshold: 60
+    periodSeconds: 30
+  service:
+    type: NodePort
+
+flower:
+  service:
+    type: NodePort
+
+

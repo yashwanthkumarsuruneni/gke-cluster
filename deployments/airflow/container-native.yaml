@@ -1,0 +1,31 @@
+ingress:
+  enabled: true
+  web:
+    path: "/*"
+  flower:
+    path: "/*"
+
+# Airflow webserver settings
+webserver:
+  livenessProbe:
+    initialDelaySeconds: 15
+    timeoutSeconds: 30
+    failureThreshold: 60
+    periodSeconds: 30
+  readinessProbe:
+    initialDelaySeconds: 15
+    timeoutSeconds: 30
+    failureThreshold: 60
+    periodSeconds: 30
+  service:
+    annotations: {
+      cloud.google.com/neg: '{"ingress": true}'
+    }
+
+flower:
+  service:
+    annotations: {
+      cloud.google.com/neg: '{"ingress": true}'
+    }
+
+
