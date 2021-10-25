@@ -13,10 +13,3 @@ locals {
      PROJECT     = local.project_id
    }
 }
-
-
-
-
-
-
-
