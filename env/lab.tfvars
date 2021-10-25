@@ -1,6 +1,6 @@
 # Incase if the downloaded credentials file is `xyz.json` , 
 # The credentials value should be "xyz", dont add .json .
-# Please add the xyz.json in root 
+# Please dont forget to add json file in root of this project 
 credentials = "XXXXXXXX"
 # The name of the cluster (string) 
 cluster_name = "XXXXXXXX"
